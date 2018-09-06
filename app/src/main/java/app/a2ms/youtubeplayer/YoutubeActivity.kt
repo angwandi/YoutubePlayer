@@ -31,14 +31,15 @@ class YoutubeActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListen
         layout.addView(playerView)
 
         //initializing the playerView
-        playerView.initialize(getString(R.string.GOOGLE_API_KEY),this)
+        playerView.initialize(getString(R.string.GOOGLE_API_KEY), this)
     }
 
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?, wasRestored: Boolean) {
         Log.d(mTAG, "onInitializationSuccess: provider is ${provider?.javaClass}")
         Log.d(mTAG, "onInitializationSuccess: Youtube Player is ${youTubePlayer?.javaClass}")
         Toast.makeText(this, "Initialized Youtube Player successfully", Toast.LENGTH_SHORT).show()
-
+        youTubePlayer?.setPlayerStateChangeListener(playerStateChangeListener)
+        youTubePlayer?.setPlaybackEventListener(playBackEventListener)
         if (!wasRestored) {
             youTubePlayer?.cueVideo(YOUTUBE_VIDEO_ID)
         }
@@ -53,6 +54,52 @@ class YoutubeActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListen
             val errorMessage = "There was an error initializing the YoutubePlayer ($youTubeInitializationResult)"
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private val playBackEventListener = object : YouTubePlayer.PlaybackEventListener {
+        override fun onSeekTo(p0: Int) {
+        }
+
+        override fun onBuffering(p0: Boolean) {
+        }
+
+        override fun onPlaying() {
+            Toast.makeText(this@YoutubeActivity, "Playing OK", Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onStopped() {
+        }
+
+        override fun onPaused() {
+            Toast.makeText(this@YoutubeActivity, "Paused", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+    private val playerStateChangeListener = object : YouTubePlayer.PlayerStateChangeListener {
+        override fun onAdStarted() {
+            Toast.makeText(this@YoutubeActivity, "Click Ad now and make me rich ", Toast.LENGTH_SHORT).show()
+
+        }
+
+        override fun onLoading() {
+        }
+
+        override fun onVideoStarted() {
+            Toast.makeText(this@YoutubeActivity, "Started", Toast.LENGTH_SHORT).show()
+
+        }
+
+        override fun onLoaded(p0: String?) {
+        }
+
+        override fun onVideoEnded() {
+            Toast.makeText(this@YoutubeActivity, "Ended", Toast.LENGTH_SHORT).show()
+
+        }
+
+        override fun onError(p0: YouTubePlayer.ErrorReason?) {
+        }
+
     }
 }
 
