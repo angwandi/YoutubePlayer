@@ -9,6 +9,9 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 
+const val YOUTUBE_VIDEO_ID = "watch?v=lW2PI6jqn1U"
+const val YOUTUBE_PLAYLIST = "watch?v=8JnfIa84TnU&list=PL4o29bINVT4EG_y-k5jGoOu3-Am8Nvi10"
+
 class YoutubeActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
 
     @SuppressLint("InflateParams", "SetTextI18n")
