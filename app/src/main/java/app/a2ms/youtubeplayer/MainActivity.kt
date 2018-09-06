@@ -7,18 +7,20 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         btnPlaySingle.setOnClickListener(this)
         btnStandalon.setOnClickListener(this)
     }
 
-    override fun onClick(v: View?) {
-        val intent = when (v?.id) {
+    override fun onClick(view: View) {
+        val intent = when (view.id) {
             R.id.btnPlaySingle -> Intent(this, YoutubeActivity::class.java)
             R.id.btnStandalon -> Intent(this, StandaloneActivity::class.java)
-            else -> throw IllegalArgumentException("Undefined button clicked ")
+            else -> throw IllegalArgumentException("Undefined button clicked")
         }
         startActivity(intent)
     }
